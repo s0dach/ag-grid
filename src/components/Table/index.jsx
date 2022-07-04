@@ -10,20 +10,21 @@ export const Table = () => {
   let cars = createCars;
   const gridRef = useRef();
   const [rowData, setRowData] = useState(createCars);
-
-  const [columnDefs, setColumnDefs] = useState([
+  const [columnDefs] = useState([
+    {
+      maxWidth: 50,
+      rowDrag: (params) => (params.data.id !== 1 ? true : false),
+    },
     {
       headerName: "Название",
       field: "type",
       checkboxSelection: true,
-      rowDrag: true,
     },
     { headerName: "Год выпуска", field: "year" },
     { headerName: "Цвет", field: "color" },
     {
       headerName: "Цена",
       field: "price",
-      cellRenderer: "agAnimateShowChangeCellRenderer",
     },
   ]);
 
@@ -60,6 +61,7 @@ export const Table = () => {
         rowSelection={"multiple"}
         rowData={rowData}
         animateRows={true}
+        rowDragMultiRow={true}
         columnDefs={columnDefs}
         defaultColDef={defaultColDef}
         rowDragManaged={true}
